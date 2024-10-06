@@ -21,21 +21,28 @@ function ToDoList() {
     setMyTasks(updatedTasks);
   }
 
-  function deleteTaskById(id) {
-    const newArray = myTasks.filter(id);
+  function deleteTaskById(event) {
+    event.preventDefault();
+    const id = parseInt(event.target.elements.deleteTaskId.value,10);
+    const newArray = myTasks.filter(task => task.id !==id);
     setMyTasks(newArray);
   }
 
   return (
     <>
       <h1>Task List</h1>
+      <button onClick={deleteTask}>delete last task</button>
       <form onSubmit={addTask}>
         <input id="myInput" type="text" placeholder="Write task" />
         <button type="submit">Add Task</button>
       </form>
-      <button onClick={deleteTask}>delete last task</button>
-      <button onClick={deleteTaskById}>delete task by id</button>
+{/* 444 */}
+      <form onSubmit={deleteTaskById} >
+      <input id="deleteTaskId"placeholder="enter id to delete task"></input>
+      <button type="submit">delete task by id</button>
+      </form>
       <ul>
+
         {myTasks.map((task) => (
           <li key={task.id}>
             {task.id} --- {task.text}{" "}
